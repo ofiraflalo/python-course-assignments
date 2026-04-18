@@ -1,5 +1,4 @@
 # python-course-assignments
-# Python Course Assignments
 
 This repository contains my assignments for the course.
 
