@@ -45,5 +45,3 @@ I used ChatGPT to help me write this assignment.
 Prompt used:
 - "Help me write a Python program that calculates pH using hydrogen ion concentration."
 
-
-- "Help me create a README file for my GitHub assignment."
