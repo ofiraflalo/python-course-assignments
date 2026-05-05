@@ -33,32 +33,47 @@ This feature allows calculation of the ratio between conjugate base and weak aci
 
 ---
 
-## How to Run
+### 1. Standard Input Version
 
-### 1. Standard Input
-```bash
 python ph_input.py
-```
 
-### 2. Command Line
-```bash
+Then enter a value like:
+0.001
+
+---
+
+### 2. Command Line Version
+
 python ph_command_line.py 0.001
-```
 
-### 3. GUI
-```bash
+---
+
+### 3. GUI Version
+
 python ph_gui.py
-```
+
+A window will open. Enter the concentration and click the button to calculate the pH.
+
+
+---
 
 ### 4. Henderson Calculation
-```bash
+
 python henderson_cli.py
-```
+
+Then enter values like:
+pH: 7  
+pKa: 6  
+
+The program will calculate the ratio [A-]/[HA] and display which form is dominant.
+
+---
 
 ### 5. Tests
-```bash
+
 python test_ph.py
-```
+
+This will run several test cases to verify that the calculations work correctly.
 
 ---
 
