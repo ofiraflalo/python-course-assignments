@@ -9,6 +9,12 @@ pH = -log10[H+]
 
 ---
 
+## Note
+This calculation is suitable for monoprotic acids only.  
+It does not apply to diprotic or triprotic acids.
+
+---
+
 ## New Feature (Day04)
 Added Henderson-Hasselbalch equation:
 
