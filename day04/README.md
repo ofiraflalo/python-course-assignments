@@ -99,5 +99,5 @@ I used ChatGPT to:
 ---
 
 ## Interaction with other students
-I reviewed other students' repositories and opened issues.  
+I reviewed other students repositories and opened issues.  
 I also received feedback and improved my project accordingly.
