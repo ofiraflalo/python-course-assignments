@@ -29,5 +29,26 @@ The program creates:
    A graph showing the calibration curve and the unknown samples.
 
 ## How to run
+
+First install the required packages, then run the analysis:
+
 ```bash
+pip install -r requirements.txt
 python noe_ph_analysis.py
+```
+
+## How to run tests
+
+Run the tests with:
+
+```bash
+python -m pytest test_noe_ph_analysis.py
+```
+
+## Test result
+
+The code was tested with pytest, and all 3 tests passed.
+
+## Notes
+
+The data in this project is simulated and does not contain private lab data. The project is based on the idea of using NMR bicarbonate NOE enhancement as a possible pH-related measurement.
