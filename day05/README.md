@@ -47,7 +47,7 @@ python -m pytest test_noe_ph_analysis.py
 
 ## Test result
 
-The code was tested with pytest, and all 3 tests passed.
+The tests were run using pytest, and all 3 tests passed.
 
 ## Notes
 
