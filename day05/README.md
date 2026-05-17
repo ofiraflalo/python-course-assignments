@@ -55,8 +55,11 @@ The data in this project is simulated and does not contain private lab data. The
 
 ## AI use and prompts
 
-I used chatGPT to help plan the project, create tests and debug errors.
+I used chatGPT https://chatgpt.com/ to help plan the project, create tests and debug errors.
 
 Example prompts:
 - "Write pytest tests for the pH estimation function."
 - "Help me debug missing package and file path errors."
+
+
+
