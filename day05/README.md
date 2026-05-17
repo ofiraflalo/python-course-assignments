@@ -27,6 +27,15 @@ The program creates:
 
 2. `calibration_plot.png`  
    A graph showing the calibration curve and the unknown samples.
+   
+## Requirements
+
+The following libraries are required:
+
+- **pandas**: For reading CSV files and working with data tables.
+- **numpy**: For numerical calculations and interpolation.
+- **matplotlib**: For creating the calibration plot.
+- **pytest**: For running the test file.
 
 ## How to run
 
