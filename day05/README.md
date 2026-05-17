@@ -52,3 +52,11 @@ The tests were run using pytest, and all 3 tests passed.
 ## Notes
 
 The data in this project is simulated and does not contain private lab data. The project is based on the idea of using NMR bicarbonate NOE enhancement as a possible pH-related measurement.
+
+## AI use and prompts
+
+I used AI to help plan the project, create tests and debug errors.
+
+Example prompts:
+- "Write pytest tests for the pH estimation function."
+- "Help me debug missing package and file path errors."
