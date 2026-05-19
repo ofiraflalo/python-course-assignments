@@ -86,7 +86,7 @@ pandas
 matplotlib
 ```
 
-## AI Use## AI Use
+## AI Use
 
 I used AI to help me write and improve the Python code for this project.    
 I also used AI to help organize the code, create the output table, save the results to a CSV file, and generate a graph.
