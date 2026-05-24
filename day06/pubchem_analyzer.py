@@ -45,6 +45,9 @@ def main():
     print("\nDownloaded compound data:")
     print(df)
 
+    df["Molecular Weight"] = pd.to_numeric(df["Molecular Weight"], errors="coerce")
+    df["XLogP"] = pd.to_numeric(df["XLogP"], errors="coerce")
+
     df.to_csv("pubchem_results.csv", index=False)
 
     average_mw = df["Molecular Weight"].mean()
