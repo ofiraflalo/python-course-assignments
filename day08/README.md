@@ -111,5 +111,3 @@ I have a Python project that downloads chemical data from PubChem. Help me separ
 ```text
 Help me create a FastAPI web application that uses my existing PubChem analysis functions.
 ```
-
-```
