@@ -92,11 +92,5 @@ I used CHAT GPT to help me adapt my Day 6 project into a web application.
 AI helped me separate the business logic from the web application, write FastAPI routes, and create tests for both the logic functions and the web application.
 
 Examples of prompts I used:
-
-```text
 I have a Python project that downloads chemical data from PubChem. Help me separate the business logic into a separate file.
-```
-
-```text
 Help me create a FastAPI web application that uses my existing PubChem analysis functions.
-```
