@@ -8,17 +8,6 @@ The program uses the PubChem database to download chemical information about sel
 In this version, I created a web application using FastAPI.  
 The business logic is separated into a different file, so the same functions can be used by both the program and the web application.
 
-## Project Structure
-
-```text
-day08/
-├── app.py
-├── pubchem_logic.py
-├── test_pubchem_logic.py
-├── test_app.py
-├── requirements.txt
-└── README.md
-```
 
 ## Business Logic
 
