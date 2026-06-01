@@ -88,7 +88,7 @@ The tests check both the business logic and the web application.
 
 ## AI Use
 
-I used CHAT GPT to help me adapt my Day 6 project into a web application.  
+I used ChatGPT to help me adapt my Day 6 project into a web application.  
 AI helped me separate the business logic from the web application, write FastAPI routes, and create tests for both the logic functions and the web application.
 
 Examples of prompts I used:
