@@ -81,7 +81,7 @@ http://127.0.0.1:8000/docs
 Run:
 
 ```bash
-pytest
+python -m pytest
 ```
 
 The tests check both the business logic and the web application.
