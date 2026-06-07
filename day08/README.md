@@ -61,7 +61,7 @@ pip install -r requirements.txt
 Run the web application:
 
 ```bash
-uvicorn app:app --reload
+python -m uvicorn app:app --reload
 ```
 
 Then open the browser at:
