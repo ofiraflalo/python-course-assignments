@@ -69,12 +69,36 @@ Then open the browser at:
 ```text
 http://127.0.0.1:8000
 ```
+This page should show a welcome message:
 
-To use the automatic API page, open:
+```json
+{"message":"Welcome to the PubChem Compound Analyzer API"}
+```
+
+To test the API in the browser, open:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
+
+Then open the `POST /analyze` section, click `Try it out`, and use this input:
+
+```json
+{
+  "compounds": ["caffeine", "aspirin", "glucose"]
+}
+```
+
+Then click `Execute`.
+
+A successful response should have status code:
+
+```text
+200
+```
+
+and return chemical data for the selected compounds
+
 
 ## How to Run the Tests
 
