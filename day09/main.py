@@ -17,7 +17,7 @@ try:
     print("Dataset loaded successfully.")
 except FileNotFoundError:
     print(f"Error: The file '{file_name}' was not found.")
-    print("Please download the dataset and save it in the same folder as main.py.")
+    print("Please make sure the dataset is in the same folder as main.py.")
     exit()
 
 
@@ -33,45 +33,39 @@ print(data.columns)
 
 
 # -----------------------------
-# Clean and prepare the data
+# Keep relevant columns
 # -----------------------------
 
-# This project uses IC50 values to classify molecules as active or inactive inhibitors.
-# The column names may be slightly different depending on the downloaded dataset.
-# Common ChEMBL/Kaggle column names include:
-# "standard_value", "Standard Value", or "IC50"
+# The dataset contains SMILES strings and activity values.
+# SMILES represents the molecular structure as text.
+# standard_value represents the measured activity value, usually IC50.
 
-possible_ic50_columns = ["standard_value", "Standard Value", "IC50", "pIC50"]
+required_columns = ["canonical_smiles", "standard_value"]
 
-ic50_column = None
+for col in required_columns:
+    if col not in data.columns:
+        print(f"\nError: Missing required column: {col}")
+        exit()
 
-for col in possible_ic50_columns:
-    if col in data.columns:
-        ic50_column = col
-        break
+# Keep only IC50 measurements if the column exists
+if "standard_type" in data.columns:
+    data = data[data["standard_type"] == "IC50"]
 
-if ic50_column is None:
-    print("\nError: Could not find an IC50 / activity value column.")
-    print("Please check the dataset column names and update the code.")
-    exit()
+# Convert activity values to numeric
+data["standard_value"] = pd.to_numeric(data["standard_value"], errors="coerce")
 
-print(f"\nUsing activity column: {ic50_column}")
-
-# Convert IC50 column to numeric values
-data[ic50_column] = pd.to_numeric(data[ic50_column], errors="coerce")
-
-# Remove rows without activity values
-data = data.dropna(subset=[ic50_column])
+# Remove rows with missing SMILES or missing activity values
+data = data.dropna(subset=["canonical_smiles", "standard_value"])
 
 
 # -----------------------------
-# Create labels
+# Create activity labels
 # -----------------------------
 
 # Active inhibitor: IC50 <= 1000 nM
-# Inactive / weak inhibitor: IC50 > 1000 nM
+# Weak/inactive inhibitor: IC50 > 1000 nM
 
-data["activity_class"] = data[ic50_column].apply(
+data["activity_class"] = data["standard_value"].apply(
     lambda x: "active" if x <= 1000 else "inactive"
 )
 
@@ -80,48 +74,47 @@ print(data["activity_class"].value_counts())
 
 
 # -----------------------------
-# Select features
+# Create simple molecular features from SMILES
 # -----------------------------
 
-# The code tries to use common molecular descriptor columns if they exist.
-# If the dataset has different column names, update this list.
+def create_smiles_features(smiles):
+    """
+    This function creates simple numerical features from a SMILES string.
+    These features are not full chemical descriptors, but they allow us
+    to build a basic prediction model from molecular structure text.
+    """
 
-possible_features = [
-    "MW",
-    "Molecular Weight",
-    "molecular_weight",
-    "LogP",
-    "AlogP",
-    "NumHDonors",
-    "HBD",
-    "NumHAcceptors",
-    "HBA",
-]
+    smiles = str(smiles)
 
-available_features = [col for col in possible_features if col in data.columns]
+    features = {
+        "smiles_length": len(smiles),
+        "num_C": smiles.count("C"),
+        "num_N": smiles.count("N"),
+        "num_O": smiles.count("O"),
+        "num_S": smiles.count("S"),
+        "num_F": smiles.count("F"),
+        "num_Cl": smiles.count("Cl"),
+        "num_Br": smiles.count("Br"),
+        "num_double_bonds": smiles.count("="),
+        "num_triple_bonds": smiles.count("#"),
+        "num_rings": sum(char.isdigit() for char in smiles),
+        "num_branches": smiles.count("(") + smiles.count(")"),
+        "num_aromatic_c": smiles.count("c"),
+        "num_aromatic_n": smiles.count("n"),
+        "num_aromatic_o": smiles.count("o"),
+    }
 
-if len(available_features) < 2:
-    print("\nNot enough molecular descriptor columns were found.")
-    print("The dataset may only contain SMILES and IC50 values.")
-    print("Please use a dataset that includes molecular descriptors such as MW, LogP, HBD, and HBA.")
-    print("Available columns are:")
-    print(data.columns)
-    exit()
+    return pd.Series(features)
 
-print("\nUsing features:")
-print(available_features)
 
-# Keep only selected feature columns and target
-model_data = data[available_features + ["activity_class"]].copy()
+features = data["canonical_smiles"].apply(create_smiles_features)
 
-# Convert all features to numeric
-for feature in available_features:
-    model_data[feature] = pd.to_numeric(model_data[feature], errors="coerce")
+model_data = pd.concat([features, data["activity_class"]], axis=1)
 
-# Remove rows with missing feature values
+# Remove possible missing values
 model_data = model_data.dropna()
 
-X = model_data[available_features]
+X = model_data.drop(columns=["activity_class"])
 y = model_data["activity_class"]
 
 
@@ -163,6 +156,19 @@ print(round(accuracy, 3))
 
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
+
+
+# -----------------------------
+# Feature importance
+# -----------------------------
+
+feature_importance = pd.DataFrame({
+    "feature": X.columns,
+    "importance": model.feature_importances_
+}).sort_values(by="importance", ascending=False)
+
+print("\nFeature Importance:")
+print(feature_importance)
 
 
 # -----------------------------
