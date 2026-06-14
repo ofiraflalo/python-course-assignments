@@ -73,6 +73,5 @@ The prompts used during the project are included in the file:
 Prompts:
 Please help me design a Python machine learning project that predicts whether a molecule is an active enzyme inhibitor based on bioactivity data such as IC50 values.
 Please write Python code using pandas and scikit-learn to train a Random Forest model that classifies molecules as active or inactive inhibitors based on IC50 values and molecular descriptors.
-Please improve and organize the README section that explains how to run the script, what the output is, and how ChatGPT was used in the project.
 ```
 
